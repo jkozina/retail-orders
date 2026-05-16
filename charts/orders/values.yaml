@@ -1,0 +1,7 @@
+replicaCount: 2
+image:
+  repository: retail/orders-api
+  tag: v1.0.0
+service:
+  type: ClusterIP
+  port: 8080

@@ -1,0 +1,29 @@
+name: Beacon Connectivity
+
+on:
+  pull_request:
+    paths:
+      - "charts/**"
+      - "terraform/**"
+      - "k8s/**"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  verdict:
+    runs-on: ubuntu-latest
+    services:
+      beacon-app:
+        image: ghcr.io/jkozina/beacon-app:demo
+        ports: ["8181:8181"]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}     # check out PR branch HEAD (not the merge ref) so write-back can push
+      - uses: jkozina/beacon-action@v1
+        with:
+          beacon-url: http://localhost:8181
+          implementation-paths: charts,terraform,k8s
