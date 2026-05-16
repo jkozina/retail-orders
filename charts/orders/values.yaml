@@ -5,3 +5,13 @@ image:
 service:
   type: ClusterIP
   port: 8080
+
+egress:
+  allow:
+    - name: payments
+      host: payments-api.prod.company.internal
+      port: 443
+      protocol: HTTPS
+      justification: Submit payment authorization requests
+      ticket: CHG123457
+      ttlDays: 120
