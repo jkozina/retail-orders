@@ -1,0 +1,59 @@
+apiVersion: network.company.com/v1
+kind: NetworkIntent
+metadata:
+  name: orders-to-notifications
+  namespace: orders
+  labels:
+    network.company.com/central-id: app-orders
+    network.company.com/environment: prod
+    network.company.com/tenant: retail
+  annotations:
+    network.company.com/decision-id: dec-e54ba232
+
+spec:
+  source:
+    workloadId: orders-api
+    centralId: app-orders
+    namespace: orders
+    serviceAccount: orders-api
+    environment: prod
+    tenant: retail
+
+  destination:
+    requestedFqdn: notifications-api.prod.company.internal
+    canonicalFqdn: notifications-api.service.prod.company.internal
+    serviceId: app-notifications-api
+
+  traffic:
+    direction: egress
+    protocol: TCP
+    port: 443
+    applicationProtocol: HTTPS
+    sni: notifications-api.prod.company.internal
+    tlsRequired: true
+
+  purpose:
+    businessJustification: Send order confirmation messages to customers
+    ticket: CHG200002
+    requestedBy: jkozina
+    dataTypes: []
+
+  lifecycle:
+    requestedTtlDays: 14
+    maxAllowedTtlDays: 14
+    expiresAt: "2026-06-09T01:54:13.029100+00:00"
+
+  approval:
+    decisionId: dec-e54ba232
+    allow: true
+    policyBundle: beacon-policy:v2026.05.03
+    evaluatedAt: "2026-05-26T01:54:13.029100+00:00"
+    expiresAt: "2026-06-09T01:54:13.029100+00:00"
+    controls:
+      primary:
+        type: istio-service-entry
+        owner: platform-mesh
+        target: eks-prod-use1-retail-a/orders
+    matchedRules:
+    metadataSnapshotHash: sha256:6279c6eb487e0b73e49c1985e6ddded4c7cff839bf585d533db013fc6406c738
+    signature: beacon-signature:v1:5QpYlB9lXk6KL3SB3R5u_VCoo9zuyrpp12mMOB0yWQvrbLfw1ktabx3VYUWhiyMXxAM4hMOkD09D7l6RHpRFBg

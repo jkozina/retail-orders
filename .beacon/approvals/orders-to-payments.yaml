@@ -8,7 +8,7 @@ metadata:
     network.company.com/environment: prod
     network.company.com/tenant: retail
   annotations:
-    network.company.com/decision-id: dec-98006f5e
+    network.company.com/decision-id: dec-c8481e3c
 
 spec:
   source:
@@ -41,14 +41,14 @@ spec:
   lifecycle:
     requestedTtlDays: 30
     maxAllowedTtlDays: 30
-    expiresAt: "2026-06-25T01:50:59.375333+00:00"
+    expiresAt: "2026-06-25T01:54:12.987847+00:00"
 
   approval:
-    decisionId: dec-98006f5e
+    decisionId: dec-c8481e3c
     allow: true
     policyBundle: beacon-policy:v2026.05.03
-    evaluatedAt: "2026-05-26T01:50:59.375333+00:00"
-    expiresAt: "2026-06-25T01:50:59.375333+00:00"
+    evaluatedAt: "2026-05-26T01:54:12.987847+00:00"
+    expiresAt: "2026-06-25T01:54:12.987847+00:00"
     controls:
       primary:
         type: istio-service-entry
@@ -72,4 +72,4 @@ spec:
       - RESTRICTED_DESTINATION_REQUIRES_OWNER_POLICY
       - TTL_RESTRICTED_DESTINATION_MAX_30D
     metadataSnapshotHash: sha256:17574837d03c2c8ea584b3ff11ff2ee0494a291cd0ad8ca3128b3e68d215bece
-    signature: beacon-signature:v1:hRwa7EGg2n7WPxAMlLXFYUqkuRQAuTIpt6CuS-Jug0gXJtnwwwtqjaTR1RXwTADInTT9GlP4SpRq7zprmTmUCQ
+    signature: beacon-signature:v1:DVVY6d2XKHNb-xKUt2Ti2m9-ls9BW6TzINvPjfSe6CnqzMIvvkOrEfSY2Xw9wimVnxJLRNf6EMrcVTrl9LkeCQ

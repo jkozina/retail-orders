@@ -8,7 +8,7 @@ metadata:
     network.company.com/environment: prod
     network.company.com/tenant: retail
   annotations:
-    network.company.com/decision-id: dec-d0b2f167
+    network.company.com/decision-id: dec-f3d858cc
 
 spec:
   source:
@@ -41,14 +41,14 @@ spec:
   lifecycle:
     requestedTtlDays: 30
     maxAllowedTtlDays: 30
-    expiresAt: "2026-06-25T01:50:59.399096+00:00"
+    expiresAt: "2026-06-25T01:54:13.013513+00:00"
 
   approval:
-    decisionId: dec-d0b2f167
+    decisionId: dec-f3d858cc
     allow: true
     policyBundle: beacon-policy:v2026.05.03
-    evaluatedAt: "2026-05-26T01:50:59.399096+00:00"
-    expiresAt: "2026-06-25T01:50:59.399096+00:00"
+    evaluatedAt: "2026-05-26T01:54:13.013513+00:00"
+    expiresAt: "2026-06-25T01:54:13.013513+00:00"
     controls:
       primary:
         type: istio-service-entry
@@ -56,4 +56,4 @@ spec:
         target: eks-prod-use1-retail-a/orders
     matchedRules:
     metadataSnapshotHash: sha256:7376ca65eaf16c68a4bc3abe51cc342c2e322200c85e84d32ae946ef497b80af
-    signature: beacon-signature:v1:vI_K1apu7RYdvvQ30NrggA1xeaAydU2liSXRe-wwEoyUScctvnBAbj3aOGhiXIDHj0ImKA4FDk4TFhXGoPNMBg
+    signature: beacon-signature:v1:hwzGXqIDerUNvoJT3A_rkZQIsOS2lGKCisXAbONsnItFncg4Hbf07t3wmOhvp_S3t_VQdoLx-mxQ4q8aSlFVCg
