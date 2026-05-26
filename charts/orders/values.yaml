@@ -28,7 +28,7 @@ egress:
       protocol: HTTPS
       justification: Send order confirmation messages to customers
       ticket: CHG200002
-      ttlDays: 14
+      ttlDays: 28
     - name: analytics
       host: analytics-api.prod.company.internal
       port: 443
