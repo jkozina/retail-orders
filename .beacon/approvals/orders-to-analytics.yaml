@@ -1,14 +1,14 @@
 apiVersion: network.company.com/v1
 kind: NetworkIntent
 metadata:
-  name: orders-to-inventory
+  name: orders-to-analytics
   namespace: orders
   labels:
     network.company.com/central-id: app-orders
     network.company.com/environment: prod
     network.company.com/tenant: retail
   annotations:
-    network.company.com/decision-id: dec-b0f80114
+    network.company.com/decision-id: dec-ed216b82
 
 spec:
   source:
@@ -20,40 +20,40 @@ spec:
     tenant: retail
 
   destination:
-    requestedFqdn: inventory-api.prod.company.internal
-    canonicalFqdn: inventory-api.service.prod.company.internal
-    serviceId: app-inventory-api
+    requestedFqdn: analytics-api.prod.company.internal
+    canonicalFqdn: analytics-api.service.prod.company.internal
+    serviceId: app-analytics-api
 
   traffic:
     direction: egress
     protocol: TCP
     port: 443
     applicationProtocol: HTTPS
-    sni: inventory-api.prod.company.internal
+    sni: analytics-api.prod.company.internal
     tlsRequired: true
 
   purpose:
-    businessJustification: Look up stock levels for order fulfillment
-    ticket: CHG200001
+    businessJustification: Stream order events to analytics ingest
+    ticket: CHG200003
     requestedBy: jkozina
     dataTypes: []
 
   lifecycle:
-    requestedTtlDays: 30
-    maxAllowedTtlDays: 30
-    expiresAt: "2026-06-25T01:59:48.763701+00:00"
+    requestedTtlDays: 60
+    maxAllowedTtlDays: 60
+    expiresAt: "2026-07-25T01:59:48.791998+00:00"
 
   approval:
-    decisionId: dec-b0f80114
+    decisionId: dec-ed216b82
     allow: true
     policyBundle: beacon-policy:v2026.05.03
-    evaluatedAt: "2026-05-26T01:59:48.763701+00:00"
-    expiresAt: "2026-06-25T01:59:48.763701+00:00"
+    evaluatedAt: "2026-05-26T01:59:48.791998+00:00"
+    expiresAt: "2026-07-25T01:59:48.791998+00:00"
     controls:
       primary:
         type: istio-service-entry
         owner: platform-mesh
         target: eks-prod-use1-retail-a/orders
     matchedRules:
-    metadataSnapshotHash: sha256:7376ca65eaf16c68a4bc3abe51cc342c2e322200c85e84d32ae946ef497b80af
-    signature: beacon-signature:v1:7Q-m_D73RewT_j8xbFGGilq4UIcuFEE-p5HPI5C8UgCtov7h926tfABBsa4zTCz6uD9hmE1lTcNdsUKI0Y6ZCQ
+    metadataSnapshotHash: sha256:2cb623e6985546a0d5215d569abaa1133dab9f7d2e26a80f54896fdf820d4539
+    signature: beacon-signature:v1:jwqW90h9TooZUgm_vpDxcAcRdSj93ZaH75AAPMJsbJhG_ZyI2pyfTdPLdLp8IxB6uKGlRiZ0JxsBp59_YhmCAw
