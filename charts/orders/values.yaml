@@ -29,3 +29,10 @@ egress:
       justification: Send order confirmation messages to customers
       ticket: CHG200002
       ttlDays: 14
+    - name: analytics
+      host: analytics-api.prod.company.internal
+      port: 443
+      protocol: HTTPS
+      justification: Stream order events to analytics ingest
+      ticket: CHG200003
+      ttlDays: 60
