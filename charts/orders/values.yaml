@@ -15,3 +15,10 @@ egress:
       justification: Submit payment authorization requests
       ticket: CHG123456
       ttlDays: 30
+    - name: inventory
+      host: inventory-api.prod.company.internal
+      port: 443
+      protocol: HTTPS
+      justification: Look up stock levels for order fulfillment
+      ticket: CHG200001
+      ttlDays: 30
