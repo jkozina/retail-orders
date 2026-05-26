@@ -22,3 +22,10 @@ egress:
       justification: Look up stock levels for order fulfillment
       ticket: CHG200001
       ttlDays: 30
+    - name: notifications
+      host: notifications-api.prod.company.internal
+      port: 443
+      protocol: HTTPS
+      justification: Send order confirmation messages to customers
+      ticket: CHG200002
+      ttlDays: 14
