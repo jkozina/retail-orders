@@ -1,0 +1,75 @@
+apiVersion: network.company.com/v1
+kind: NetworkIntent
+metadata:
+  name: orders-to-payments
+  namespace: orders
+  labels:
+    network.company.com/central-id: app-orders
+    network.company.com/environment: prod
+    network.company.com/tenant: retail
+  annotations:
+    network.company.com/decision-id: dec-bd21b4cb
+
+spec:
+  source:
+    workloadId: orders-api
+    centralId: app-orders
+    namespace: orders
+    serviceAccount: orders-api
+    environment: prod
+    tenant: retail
+
+  destination:
+    requestedFqdn: payments-api.prod.company.internal
+    canonicalFqdn: payments-api.service.prod.company.internal
+    serviceId: app-payments-api
+
+  traffic:
+    direction: egress
+    protocol: TCP
+    port: 443
+    applicationProtocol: HTTPS
+    sni: payments-api.prod.company.internal
+    tlsRequired: true
+
+  purpose:
+    businessJustification: Submit payment authorization requests
+    ticket: CHG123456
+    requestedBy: jkozina
+    dataTypes: []
+
+  lifecycle:
+    requestedTtlDays: 30
+    maxAllowedTtlDays: 30
+    expiresAt: "2026-06-25T01:18:20.807362+00:00"
+
+  approval:
+    decisionId: dec-bd21b4cb
+    allow: true
+    policyBundle: beacon-policy:v2026.05.03
+    evaluatedAt: "2026-05-26T01:18:20.807362+00:00"
+    expiresAt: "2026-06-25T01:18:20.807362+00:00"
+    controls:
+      primary:
+        type: istio-service-entry
+        owner: platform-mesh
+        target: eks-prod-use1-retail-a/orders
+      transitive:
+        - type: equinix-pa
+          owner: network-security
+          target: hybrid-egress
+        - type: onprem-fabric-pa
+          owner: network-security
+          target: pci-datacenter-edge
+        - type: illumio
+          owner: segmentation
+          target: app-payments-api-workload-policy
+        - type: destination-owner-approval
+          owner: team-payments
+          target: app-payments-api
+    matchedRules:
+      - PCI_DESTINATION_REQUIRES_INSPECTION
+      - RESTRICTED_DESTINATION_REQUIRES_OWNER_POLICY
+      - TTL_RESTRICTED_DESTINATION_MAX_30D
+    metadataSnapshotHash: sha256:17574837d03c2c8ea584b3ff11ff2ee0494a291cd0ad8ca3128b3e68d215bece
+    signature: beacon-signature:v1:Zfdl3UA5c-QnY18Ny6E3vJEyY1ruFt8nBN42j1wePP9savYsV8omhqIocd98aaLrIsdl02hou645LPDVnWDyAQ
