@@ -1,0 +1,32 @@
+name: Beacon Record Approval
+
+# Fires when a PR closes. The job only runs on the merged path; closed-without-
+# merge is a no-op (recorded approvals are only meaningful for merged work).
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+permissions:
+  contents: write       # to commit the approval YAML to main
+  pull-requests: read   # gh api /pulls/{n}/files
+
+jobs:
+  record:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    services:
+      beacon-app:
+        image: ghcr.io/jkozina/beacon-app:demo
+        ports: ["8181:8181"]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main          # post-merge state of main
+          token: ${{ secrets.BEACON_RECORD_TOKEN || github.token }}
+      - uses: jkozina/beacon-action@v1
+        with:
+          beacon-url: http://localhost:8181
+          implementation-paths: charts,terraform,k8s
+          mode: record-approval
