@@ -36,3 +36,10 @@ egress:
       justification: Stream order events to analytics ingest
       ticket: CHG200003
       ttlDays: 60
+    - name: customers
+      host: customers-api.prod.company.internal
+      port: 443
+      protocol: HTTPS
+      justification: Look up customer profile data during order placement
+      ticket: CHG200004
+      ttlDays: 45
